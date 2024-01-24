@@ -2,6 +2,8 @@ package com.mysite.sbb.question;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
@@ -38,4 +40,9 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	//제목과 내용으로 검색
 	//select * from question where subject = "?" and content = "?";
 	List<Question> findBySubjectAndContent(String subject, String content);
+	
+	//페이징 처리: Page<Question> findAll(Pageble pageble) - springfamework에 있는 Page import
+	//Page: 페이징을 처리하기 위한 클래스
+	//Pageable: 페이징 처리하는 인터페이스
+	Page<Question> findAll(Pageable pageable);
 }
