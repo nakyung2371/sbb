@@ -1,12 +1,14 @@
 package com.mysite.sbb.question;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -48,7 +50,11 @@ public class QuestionService {
 	public Page<Question> getList(int page) {
 		
 		//page: 요청하는 페이지 번호, 10: 한 페이지에서 출력하는 레코드 갯수
-		Pageable pageble = PageRequest.of(page, 20);
+		//Sort: 정렬을 위한 객체
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("createDate"));
+		
+		Pageable pageble = PageRequest.of(page, 10, Sort.by(sorts));
 		
 		return questionRepository.findAll(pageble);
 	}
